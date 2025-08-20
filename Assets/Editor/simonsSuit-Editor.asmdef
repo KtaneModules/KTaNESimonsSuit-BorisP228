@@ -1,0 +1,10 @@
+{
+  "name": "simonsSuit-Editor",
+  "references": [
+    "simonsSuit"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
