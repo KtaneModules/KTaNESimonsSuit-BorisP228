@@ -17,4 +17,4 @@ MonoBehaviour:
   description: 
   version: 1
   outputFolder: build
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: 139ae03869b6acf47929dc68e61fef29, type: 3}
