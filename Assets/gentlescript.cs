@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class script : MonoBehaviour
+public class gentlescript : MonoBehaviour
 {
     public KMSelectable[] buttons = new KMSelectable[3];
     public MeshRenderer[] colors = new MeshRenderer[3];
@@ -34,7 +34,7 @@ public class script : MonoBehaviour
 
     int ceil(float num)
     {
-        return (num - (int)num != 0) ? 1 : 0 + (int)num;
+        return (num - (int)num != 0 ? 1 : 0) + (int)num;
     }
 	
     void generate()
