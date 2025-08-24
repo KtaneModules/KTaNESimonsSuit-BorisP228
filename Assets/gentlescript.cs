@@ -163,4 +163,61 @@ public class gentlescript : MonoBehaviour
     {
 
     }
+
+    #region Twitch Plays
+    //The message to send to players showing available commands
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} press <left/l/top/t/right/r> [Presses the specified button] | Presses can be chained with spaces";
+    #pragma warning restore 414
+    //Process commands sent from TP to the module
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        string[] parameters = command.Split(' '); //Split the command by spaces
+        if (parameters[0].ToLowerInvariant().Equals("press")) //Make sure the command starts with "press"
+        {
+            if (parameters.Length == 1) //If the command is just "press" then send an error message
+                yield return "sendtochaterror Please specify a button to press!";
+            else
+            {
+                for (int i = 1; i < parameters.Length; i++) //Check everything after "press" for valid buttons
+                {
+                    if (!parameters[i].ToLowerInvariant().EqualsAny("left", "l", "top", "t", "right", "r"))
+                    {
+                        yield return "sendtochaterror!f The specified button to press '" + parameters[i] + "' is invalid!"; //Output that a button is invalid, the !f is to ensure parameters[i] is ignored by auto formatting
+                        yield break; //Stop execution here since an invalid button was detected
+                    }
+                }
+                yield return null; //Tell TP that the command is valid and to focus on the module
+                for (int i = 1; i < parameters.Length; i++) //Press all buttons that were specified
+                {
+                    switch (parameters[i].ToLowerInvariant())
+                    {
+                        case "left":
+                        case "l":
+                            buttons[0].OnInteract();
+                            break;
+                        case "top":
+                        case "t":
+                            buttons[1].OnInteract();
+                            break;
+                        default:
+                            buttons[2].OnInteract();
+                            break;
+                    }
+                    yield return new WaitForSeconds(.25f); //Add some delay between presses so the module's sounds dont overlap as much
+                }
+            }
+        }
+    }
+
+    //Make the module solve itself if it is forcefully solved by TP
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        while (!solve)
+        {
+            buttons[ans[input]].OnInteract();
+            yield return new WaitForSeconds(.25f);
+        }
+    }
+    #endregion
 }

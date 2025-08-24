@@ -679,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModuleType: simonsSuit
   ModuleDisplayName: Simon's Suit
-  RequiresTimerVisibility: 1
+  RequiresTimerVisibility: 0
 --- !u!114 &114262466317246246
 MonoBehaviour:
   m_ObjectHideFlags: 1
